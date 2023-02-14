@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <espnow.h>
 #define COMMON_ANODE
+#define DEBUG
 
 // const int personValues[] = { 255, 0,    0,    30 }; // 1
 // const int personValues[] = { 255, 255,  0,    30 }; // 2
@@ -115,7 +116,9 @@ void setup() {
   }
   analogWrite(anodePin, 0);
 
-  // Serial.begin(115200);
+  #ifdef DEBUG
+    Serial.begin(115200);
+  #endif
 
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
