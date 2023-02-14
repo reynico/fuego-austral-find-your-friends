@@ -70,19 +70,19 @@ struct_message incomingReadings;
 
 // Callback when data is sent
 void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
-  // Serial.print("Last Packet Send Status: ");
-  // if (sendStatus == 0) {
-  //   Serial.println("Delivery success");
-  // } else {
-  //   Serial.println("Delivery fail");
+  Serial.print("Last Packet Send Status: ");
+  if (sendStatus == 0) {
+    Serial.println("Delivery success");
+  } else {
+    Serial.println("Delivery fail");
   // }
 }
 
 // Callback when data is received
 void OnDataRecv(uint8_t *mac, uint8_t *incomingData, uint8_t len) {
   memcpy(&incomingReadings, incomingData, sizeof(incomingReadings));
-  // Serial.print("Bytes received: ");
-  // Serial.println(len);
+  Serial.print("Bytes received: ");
+  Serial.println(len);
   incomingRed = incomingReadings.red;
   incomingGreen = incomingReadings.green;
   incomingBlue = incomingReadings.blue;
@@ -98,7 +98,7 @@ int naiveChecksum(int r, int g, int b, int speed) {
 int values[] = { 0, 0, 0 };
 int maxPwmValue[] = { 0, 0, 0 };
 int direction[] = { 1, 1, 1 };
-int fadeAmount = 30;  // 100 - 1000
+int fadeAmount = 30;
 
 void setup() {
   #ifdef COMMON_ANODE
@@ -209,20 +209,7 @@ void loop() {
       }
       analogWrite(anodePin, anode);
       delay(incomingSpeed);
-    //   values[i] = values[i] + (fadeAmount * direction[i]);
-    //   if (values[i] <= 0 || values[i] >= maxPwmValue[i]) {
-    //     direction[i] = -direction[i];
-    //   }
-    //   if (values[i] >= maxPwmValue[i]) {
-    //     values[i] = maxPwmValue[i];
-    //   }
-      
-    //   analogWrite(ledpins[i], common - values[i]);
-    //   Serial.print(ledpins[i]);
-    // Serial.println(values[i]);
     }
-    
-    
   } else {
     if (!fadeDisableStatusUpdated) {
       fadeDisableStatusUpdated = true;
