@@ -1,7 +1,8 @@
 #include <ESP8266WiFi.h>
 #include <espnow.h>
 #define COMMON_ANODE
-#define DEBUG
+// #define DEBUG
+#define ESP01
 
 // const int personValues[] = { 255, 0,    0,    30 }; // 1
 // const int personValues[] = { 255, 255,  0,    30 }; // 2
@@ -18,11 +19,13 @@ const int personValues[] = { 255, 100,    0,    30 }; // 4
 // const int personValues[] = { 255, 210,  20 ,  30 }; // 10
 
 
-// int ledpins[] = { 13, 10, 15 }; // ESP8266 Firebeetle
-// int anodePin = 2;
-
-int ledpins[] = { 1, 0, 3 }; // ESP-01 R G B
-int anodePin = 2;
+#ifdef ESP01
+  int ledpins[] = { 1, 0, 3 };
+  int anodePin = 2;
+#else
+  int ledpins[] = { 13, 10, 15 };
+  int anodePin = 2;
+#endif
 
 uint8_t broadcastAddress[] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
