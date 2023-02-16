@@ -20,7 +20,7 @@ The code is prepared to be debugged with an ESP8266 board that already has an US
 
 ```c
 #define ESP01
-// #define DEBUG
+#define DEBUG
 ```
 Mind that on the `ESP01` board, the RX and TX pins are used as GPIO outputs to drive the led so it's mandatory to comment out the `DEBUG` define in order to get the three outputs working.
 
