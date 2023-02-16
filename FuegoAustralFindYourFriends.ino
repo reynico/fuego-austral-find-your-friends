@@ -120,7 +120,9 @@ void setup() {
   analogWrite(anodePin, 0);
 
   #ifdef DEBUG
-    Serial.begin(115200);
+    #ifndef ESP01
+      Serial.begin(115200);
+    #endif
   #endif
 
   WiFi.mode(WIFI_STA);
