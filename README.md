@@ -1,12 +1,28 @@
 # Find your friends
 
-Each `ESP01` board has a preprogrammed color that defines the person. The values from the array define the PWM values for R, G and B channels, and last it defines the fade effect speed:
+Each `ESP01` board has a preprogrammed color that defines the person. Each board needs to be preprogrammed with the color you want it to send to another devices. When you sit next to another person, that person's board will fade with the color of your board, and your board will fade with the color from the other person.
+
+
+## Code
+The values from the array define the PWM values for R, G and B channels, and last it defines the fade effect speed:
 
 ```c
 const int personValues[] = { 255, 100, 0, 30 };
 ```
 
-Each board needs to be preprogrammed with the color you want it to send to another devices. When you sit next to another person, that person's board will fade with the color of your board, and your board will fade with the color from the other person.
+The board is prepared to be used with common anode RGB leds, if you're willing to use common cathode leds, just comment out the following definition:
+
+```c
+#define COMMON_ANODE
+```
+
+The code is prepared to be debugged with an ESP8266 board that already has an USB port, just comment out the following definitions:
+
+```c
+#define ESP01
+// #define DEBUG
+```
+Mind that on the `ESP01` board, the RX and TX pins are used as GPIO outputs to drive the led so it's mandatory to comment out the `DEBUG` define in order to get the three outputs working.
 
 ## Electronics
 
