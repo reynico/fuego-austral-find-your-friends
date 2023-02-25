@@ -102,6 +102,8 @@ int direction[] = { 1, 1, 1 };
 int fadeAmount = 30;
 
 void setup() {
+  WiFi.setOutputPower(0); // this sets wifi to lowest power
+
   #ifdef COMMON_ANODE
     common = 255;
   #endif
@@ -125,6 +127,9 @@ void setup() {
       Serial.begin(115200);
     #endif
   #endif
+
+  Serial.print("ESP Board MAC Address:  ");
+  Serial.println(WiFi.macAddress());
 
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
