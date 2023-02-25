@@ -48,11 +48,19 @@ bool fadeEnabled = false;
 bool fadeDisableStatusUpdated = false;
 int checksum = 0;
 int previousChecksum = 0;
+unsigned long previousMillis = 0;
 
 // Update readings every 1 second
 const long interval = 1000;
 
-unsigned long previousMillis = 0;
+// Define initial led behavior
+int values[] = { 0, 0, 0 };
+int maxPwmValue[] = { 0, 0, 0 };
+int direction[] = { 1, 1, 1 };
+int fadeAmount = 30;
+
+// Define WiFi TX power. Values go between 0 and 20.5 dBm
+int wifiPower = 0;
 
 // Structure to send data
 // Must match the receiver structure
@@ -96,12 +104,9 @@ int naiveChecksum(int r, int g, int b, int speed) {
   return r * 8 + g * 4 + b * 2 + speed;
 }
 
-int values[] = { 0, 0, 0 };
-int maxPwmValue[] = { 0, 0, 0 };
-int direction[] = { 1, 1, 1 };
-int fadeAmount = 30;
-
 void setup() {
+  WiFi.setOutputPower(wifiPower); // this sets wifi to lowest power
+
   #ifdef COMMON_ANODE
     common = 255;
   #endif
@@ -125,6 +130,9 @@ void setup() {
       Serial.begin(115200);
     #endif
   #endif
+
+  Serial.print("ESP Board MAC Address:  ");
+  Serial.println(WiFi.macAddress());
 
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
